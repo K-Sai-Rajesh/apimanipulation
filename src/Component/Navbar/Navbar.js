@@ -1,7 +1,14 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { AppContext } from "../../AppContext/AppContext"
 import './Navbar.css'
+import {ImHome} from 'react-icons/im'
+import {FaCommentMedical, FaUsers} from 'react-icons/fa'
+import {TbLetterCaseToggle} from 'react-icons/tb'
 
 export const Navbar = () => {
+
+    const data = useContext(AppContext)
 
     return(
         <>
@@ -14,11 +21,11 @@ export const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 w-100 m-2 justify-content-center">
                 <li className="nav-item">
-                    <Link to='/' className='link' >Home</Link>
-                </li>&emsp;
+                    <Link to='/' className='link' > <ImHome style={{fontSize:'25px'}} /></Link>
+                </li>&emsp;&emsp;
                 <li className="nav-item">
-                    <Link to='/about' className='link' >About</Link>
-                </li>&emsp;
+                    <Link to='/about' className='link' ><TbLetterCaseToggle style={{fontSize:'25px'}} /></Link>
+                </li>&emsp;&emsp;
                 <li className="nav-item dropdown">
                 <ul className="dropdown-menu"  aria-labelledby="navbarDropdown">
                     <li></li>
@@ -27,10 +34,10 @@ export const Navbar = () => {
                 </ul>
                 </li>
                 <li className="nav-item">
-                    <Link to='/post' className='link' >Post</Link>&emsp;
+                    <Link to='/posts' className='link' ><FaCommentMedical style={{fontSize:'25px'}} /> {data.posts.length}</Link>&emsp;&emsp;
                 </li>
                 <li>
-                    <Link to='/user' className='link' >Users</Link>
+                    <Link to='/users' className='link' ><FaUsers style={{fontSize:'25px'}} /> {data.users.length}</Link>&emsp;&emsp; 
                 </li>
             </ul>
             <form className="d-flex">
@@ -42,4 +49,5 @@ export const Navbar = () => {
         </nav>
         </>
     )
+
 }

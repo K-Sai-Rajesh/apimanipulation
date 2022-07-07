@@ -1,4 +1,18 @@
 .link{
     text-decoration: none;
     color: blue;
+    font-size: large;
+}
+
+.link:hover, .link:focus{
+    text-decoration: none;
+    font-size: x-large;
+    color: brown;
+    border-bottom-width: 2px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 3px;
 }

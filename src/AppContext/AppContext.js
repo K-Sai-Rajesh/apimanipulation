@@ -4,10 +4,13 @@ export const AppContext = createContext()
 
 export const AppState = (props) => {
 
-    const [state,setState] = useState(null)
+    const [users,setUsers] = useState([])
+    const [usersCalled,setUsersCalled] = useState(false)
+    const [posts,setPosts] = useState([])
+    const [postsCalled,setPostsCalled] = useState(false)
 
     return(
-        <AppContext.Provider value={{state, setState}} >
+        <AppContext.Provider value={{users,usersCalled,posts,postsCalled, setUsers,setPosts,setPostsCalled,setUsersCalled}} >
             {
                 props.children
             }
