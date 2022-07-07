@@ -4,7 +4,6 @@ import { About } from './Component/About/About';
 import { Posts } from './Component/Post/Post';
 import { Home } from './Component/Home/Home';
 import { Navbar } from './Component/Navbar/Navbar';
-import { EditPost } from './Component/EditPost/EditPost';
 import { AppState } from './AppContext/AppContext';
 import { Users } from './Component/Users/Users';
 import { NewPost } from './Component/NewPost/NewPost';
@@ -18,10 +17,23 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/about' element={<About />} />
-          <Route path='/post' element={<Posts />} />
-          <Route path='/post/:PostId' element={<EditPost />} />
-          <Route path='/post/new/:UserId' element={<NewPost />} />
-          <Route path='/user' element={<Users />} />
+
+          <Route path='/users' element={<Users />} />
+          <Route path='/posts' element={<Posts />} />
+
+          <Route path='/users/:userid' element={<User />} />
+          <Route path='/posts/:postid' element={<Post />} />
+
+          <Route path='/users/new' element={<NewUser />} />
+          <Route path='/posts/new' element={<NewPost />} />
+
+          <Route path='/users/update/:userid' element={<UpdateUser />} />
+          <Route path='/posts/update/:postid' element={<UpdatePost />} />
+
+          <Route path='/users/delete/:userid' element={<DeleteUser />} />
+          <Route path='/posts/delete/:postid' element={<DeletePost />} />
+
+
         </Routes>
       </BrowserRouter>
 
