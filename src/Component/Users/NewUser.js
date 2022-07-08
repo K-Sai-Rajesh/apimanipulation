@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {BiArrowBack} from 'react-icons/bi'
+import { AppContext } from "../../AppContext/AppContext"
 
 export const NewUser = () => {
 
     const params = useParams()
     const [state, setState] = useState({
-        UserID : params.id,
         FullName : null,
         Phone : null,
         Email : null,
@@ -19,6 +19,7 @@ export const NewUser = () => {
             zip : null
         }
     })
+    const gstate = useContext(AppContext)
     const navigate = useNavigate()
 
     function handleSubmit(e){
@@ -34,7 +35,10 @@ export const NewUser = () => {
                 }
             })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then((data) => {
+                gstate.setUsers([...gstate.users,data])
+                navigate('/users')
+            })
             .catch(error => console.log(error))
 
         }catch(e){
@@ -42,9 +46,7 @@ export const NewUser = () => {
         }
     }
 
-    function handleChange(e){
-        console.log(e.target.value)
-        
+    function handleChange(e){        
         if(e.target.name.split("_").length == 1 ){
             let obj = state
             obj[`${e.target.name}`] = e.target.value
@@ -63,12 +65,10 @@ export const NewUser = () => {
                 <div className="col-12 mt-5 card p-5">
                     <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="col-12">
-                            <h1>User Details</h1>
+                            <h1 className="text-center">Add New User</h1>
                         </div>
-                        <div className="col-12 d-flex flex-row justify-content-start align-items-center">
-                            <label>User Id</label>&emsp;
-                            <input  type="text" readOnly disabled value={params.id}
-                                    maxLength={15} className="form-control w-25" required/>
+                        <div className="col-12">
+                            <h1>User Details</h1>
                         </div>
                         <div className="col-md-6">
                             <input  type="text" name="FullName"
@@ -124,8 +124,8 @@ export const NewUser = () => {
                                     className="form-control" id="inputZip" placeholder="Zip" required/>
                         </div>
                         <div className="col-12">
-                            <button type="submit" className="btn btn-primary">Sign Up</button>&emsp;
-                            <button type="submit" className="btn btn-primary" onClick={() => navigate(-1)} ><BiArrowBack /></button>
+                            <button type="submit" className="btn btn-primary" >Sign Up</button>&emsp;
+                            <button className="btn btn-primary" onClick={() => navigate(-1)} ><BiArrowBack /></button>
                         </div>
                     </form>
                 </div>

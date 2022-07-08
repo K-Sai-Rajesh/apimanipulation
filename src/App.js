@@ -8,6 +8,10 @@ import { Navbar } from './Component/Navbar/Navbar';
 import { About } from './Component/About/About';
 import { EditUserInfo } from './Component/Users/EditUserInfo';
 import { NewUser } from './Component/Users/NewUser';
+import { NewPost } from './Component/Posts/NewPost';
+import { EditPost } from './Component/Posts/EditPost';
+import { Login } from './Component/Login/Login';
+import { Profile } from './Component/Profile/Profile';
 
 function App() {
   return (
@@ -17,13 +21,18 @@ function App() {
       <Navbar/>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/about' element={<About />} />
 
           <Route path='/users' element={<Users />} />
           <Route path='/posts' element={<Posts />} />
 
-          <Route path='/users/update/:userid' element={<EditUserInfo />} />
-          <Route path='/users/new/:id' element={<NewUser />} />
+          <Route path='/users/update/:id' element={<EditUserInfo />} />
+          <Route path='/users/new' element={<NewUser />} />
+
+          <Route path='/posts/new/:id' element={<NewPost />} />
+          <Route path='/posts/update/:id' element={<EditPost />} />
 
         </Routes>
       </BrowserRouter>

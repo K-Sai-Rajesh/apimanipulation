@@ -1,20 +1,44 @@
 {
   "Users": [
     {
-      "UserID": "1",
       "FullName": "K Sai Rajesh",
-      "Phone": "9435345345",
-      "Email": "sairajeshk17@gmail.c",
-      "Password": "3534534rferferf",
+      "Phone": "7024899020",
+      "Email": "sairajeshk@gmail.com",
+      "Password": "34534f45y46y45t",
       "Address": {
-        "street": "fgdfgdfgdfgdfgdfgd",
-        "house": "fgdfgdfgdfgdfgdfgdfg",
+        "street": "Suncity",
+        "house": "Housing Board Colony",
         "city": "Jagdalpur",
-        "state": "Telangana",
+        "state": "Chhattisgarh",
         "zip": "494001"
+      },
+      "id": 3
+    },
+    {
+      "FullName": "K Kundan",
+      "Phone": "9435345345",
+      "Email": "kundan@gmail.com",
+      "Password": "4564b5y5y4e5y45",
+      "Address": {
+        "street": "Suncity",
+        "house": "Housing Board Colony",
+        "city": "Jagdalpur",
+        "state": "Chhattisgarh",
+        "zip": "494001"
+      },
+      "id": 4
+    }
+  ],
+  "Posts": [
+    {
+      "UserID": "3",
+      "title": "Lunch !",
+      "post": "Today we had Biriyani as Lunch in the Office.",
+      "at": {
+        "date": "8/6/2022",
+        "time": "15:41"
       },
       "id": 1
     }
-  ],
-  "Post": []
+  ]
 }

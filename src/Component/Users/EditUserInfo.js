@@ -11,20 +11,23 @@ export function EditUserInfo() {
     const [state, setState] = useState(null)  
     const navigate = useNavigate()
 
-
     useEffect(() => { 
-      if(data.users !== undefined) 
-        data.users.map((user) => {
-          if(user.id === parseInt(params.userid)) setState(user)
-        })
+          try{
+            fetch(`http://localhost:3000/users/${params.id}`,{
+                  method: 'get',
+                })
+              .then(response => response.json())
+              .then(data => setState(data))
+              .catch(error => console.log(error))
 
-    },[data.users])
+          }catch(e){
+              console.log(e)
+          }
+    },[])
 
     function handleChange(e){
-      console.log(e.target.value)
       
       if(e.target.name.split("_").length == 1 ){
-        console.log(state)
           let obj = state
           obj[`${e.target.name}`] = e.target.value
           setState(obj)
@@ -40,7 +43,7 @@ export function EditUserInfo() {
       e.preventDefault()
 
       try{
-           fetch(`http://localhost:3000/users/${params.userid}`,{
+           fetch(`http://localhost:3000/users/${params.id}`,{
                method: 'Put',
                body:JSON.stringify(state),
                headers :{
@@ -48,7 +51,7 @@ export function EditUserInfo() {
                }
            })
           .then(response => response.json())
-          .then(data => {console.log(data) 
+          .then(data => {
             navigate('/users')
           })
           .catch(error => console.log(error))
@@ -62,34 +65,34 @@ export function EditUserInfo() {
       return(
             <>
             <div key={state.UserID} className="col-12 p-3 card">
-            <form className="row g-3" onSubmit={handleSubmit}>
+            <div className="row g-3">
                         <div className="col-12">
                             <h1>Edit</h1>
                         </div>
                         <div className="col-12 d-flex flex-row justify-content-start align-items-center">
                             <label>User Id</label>&emsp;
                             <input  type="text" readOnly disabled value={state.id}
-                                    maxLength={15} className="form-control w-25" required/>
+                                    maxLength={15} className="form-control w-25" />
                         </div>
                         <div className="col-md-6">
                             <input  type="text" name="FullName"
                                     onChange={handleChange}
-                                    placeholder={state.FullName} maxLength={15} className="form-control" required/>
+                                    placeholder={state.FullName} maxLength={15} className="form-control" />
                         </div>
                         <div className="col-md-6">
                             <input  type="tel" name='Phone'
                                     onChange={handleChange}
-                                    pattern={"[6-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"} placeholder={state.Phone} maxLength={10} className="form-control" required/>
+                                    pattern={"[6-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"} placeholder={state.Phone} maxLength={10} className="form-control" />
                         </div>
                         <div className="col-md-6">
                             <input  type="email" name="Email"
                                     onChange={handleChange} maxLength={20}
-                                    placeholder={`${state.Email}`} className="form-control" required/>
+                                    placeholder={`${state.Email}`} className="form-control" />
                         </div>
                         <div className="col-md-6">
                             <input  type="password" name="Password"
                                     onChange={handleChange} maxLength={15}
-                                    placeholder={state.Password} className="form-control" required/>
+                                    placeholder={state.Password} className="form-control" />
                         </div>
                         <div className="col-12">
                             <input  type="text" name="Address_street" maxLength={20}
@@ -104,12 +107,12 @@ export function EditUserInfo() {
                         <div className="col-md-6">
                             <input  type="text" name="Address_city"
                                     onChange={handleChange}
-                                    className="form-control" maxLength={15} id="inputCity" placeholder={state.Address.city} required />
+                                    className="form-control" maxLength={15} id="inputCity" placeholder={state.Address.city}  />
                         </div>
                         <div className="col-md-4">
                             <select id="inputState" name="Address_state"
                                     onChange={handleChange}
-                                    className="form-select" required>
+                                    className="form-select">
                                 <option defaultValue={null}>State</option>
                                 <option value="Chhattisgarh">Chhattisgarh</option>
                                 <option value="Telangana">Telangana</option>
@@ -122,13 +125,13 @@ export function EditUserInfo() {
                         <div className="col-md-2">
                             <input  type="tel" maxLength={6} pattern={'[0-9][0-9][0-9][0-9][0-9][0-9]'}
                                     onChange={handleChange} name='Address_zip'
-                                    className="form-control" id="inputZip" placeholder={state.Address.zip} required/>
+                                    className="form-control" id="inputZip" placeholder={state.Address.zip}/>
                         </div>
                         <div className="col-12">
-                            <button type="submit" className="btn btn-primary" ><GrUpdate /></button>&emsp;
+                            <button type="submit" className="btn btn-primary" onClick={handleSubmit} ><GrUpdate /></button>&emsp;
                             <button type="submit" className="btn btn-primary" onClick={() => navigate(-1)} ><BiArrowBack /></button>
                         </div>
-                    </form>
+            </div>
             </div>     
             </>
         )

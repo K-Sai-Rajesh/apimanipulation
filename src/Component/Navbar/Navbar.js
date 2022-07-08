@@ -5,10 +5,15 @@ import './Navbar.css'
 import {ImHome} from 'react-icons/im'
 import {FaCommentMedical, FaUsers} from 'react-icons/fa'
 import {TbLetterCaseToggle} from 'react-icons/tb'
+import {RiLoginCircleLine,RiLogoutCircleLine} from 'react-icons/ri'
 
 export const Navbar = () => {
 
     const data = useContext(AppContext)
+
+    function Logout(){
+        data.setLogged(false)
+    }
 
     return(
         <>
@@ -26,19 +31,26 @@ export const Navbar = () => {
                 <li className="nav-item">
                     <Link to='/about' className='link' ><TbLetterCaseToggle style={{fontSize:'25px'}} /></Link>
                 </li>&emsp;&emsp;
-                <li className="nav-item dropdown">
-                <ul className="dropdown-menu"  aria-labelledby="navbarDropdown">
-                    <li></li>
-                    <li><hr className="dropdown-divider"/></li>
-                    <li></li>
-                </ul>
-                </li>
-                <li className="nav-item">
-                    <Link to='/posts' className='link' ><FaCommentMedical style={{fontSize:'25px'}} /> {data.posts.length}</Link>&emsp;&emsp;
-                </li>
-                <li>
-                    <Link to='/users' className='link' ><FaUsers style={{fontSize:'25px'}} /> {data.users.length}</Link>&emsp;&emsp; 
-                </li>
+                {
+                    data.logged ? 
+                    <>
+                        <li className="nav-item">
+                            <Link to='/posts' className='link' ><FaCommentMedical style={{fontSize:'25px'}} /> {data.posts.length}</Link>&emsp;&emsp;
+                        </li>
+                        <li>
+                            <Link to='/users' className='link' ><FaUsers style={{fontSize:'25px'}} /> {data.users.length}</Link>&emsp;&emsp; 
+                        </li>
+                        <li>
+                            <Link to='/login' className='link' onClick={Logout} ><RiLogoutCircleLine style={{fontSize:'25px'}} /></Link>&emsp;&emsp; 
+                        </li>
+                    </>
+                    : 
+                    <>
+                        <li>
+                            <Link to='/login' className='link' ><RiLoginCircleLine style={{fontSize:'25px'}} /></Link>&emsp;&emsp; 
+                        </li>
+                    </>
+                }
             </ul>
             <form className="d-flex">
                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

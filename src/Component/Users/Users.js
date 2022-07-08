@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import {FiEdit} from 'react-icons/fi'
-import { FaUserPlus } from 'react-icons/fa'
+import { FaRegSadTear, FaUserPlus } from 'react-icons/fa'
+import {MdOutlinePostAdd} from 'react-icons/md'
+import {TiUserDelete} from 'react-icons/ti'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../AppContext/AppContext"
 
@@ -13,9 +15,6 @@ export const Users = () => {
     useEffect(() => {
 
         try{
-
-            try{
-
                 if(data.usersCalled){
                     setState(data.users)
                 }else{
@@ -25,21 +24,34 @@ export const Users = () => {
                     .then(response => response.json())
                     .then(resData => {
                         data.setUsers(resData)
-                        data.setUsersCalled(true)
                         setState(resData)
                     })
                     .catch(error => console.log(error))
                 }
-    
-            }catch(e){
-                console.log(e)
-            }
 
         }catch(e){
             console.log(e)
         }
 
-    },[data.usersCalled])
+    },[])
+
+    function DeleteUser(id){
+        console.log(id)
+        try{
+                fetch(`http://localhost:3000/users/${id}`,{
+                    method:'DELETE'
+                })
+                .then(response => response.json())
+                .then(resData => {
+                    console.log(resData)
+                    window.location.reload()
+                })
+                .catch(error => console.log(error))
+
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     function Display(){
        if(state.length === 0)
@@ -54,12 +66,14 @@ export const Users = () => {
                 {
                     state.map((user) => {
                         return(
-                            <div key={user.UserID} className="col-12 p-3 card col-sm-6 col-lg-4">
+                            <div key={user.id} className="col-12 p-3 card col-sm-6 col-lg-4">
                                 <h4>{user.FullName}</h4>
-                                <h6>User_Id : {user.UserID}</h6>
+                                <h6>User_Id : {user.id}</h6>
                                 <h6>{user.Email}</h6>
                                 <div>
-                                    <button className="btn btn-info" onClick={() => navigate(`/users/update/${user.UserID}`)} ><FiEdit /></button>
+                                    <button className="btn btn-info rounded-circle" onClick={() => navigate(`/users/update/${user.id}`)} ><FiEdit /></button> &emsp;
+                                    <button className="btn btn-success rounded-circle" onClick={() => navigate(`/posts/new/${user.id}`)}><MdOutlinePostAdd/></button>&emsp;
+                                    <button className="btn btn-danger rounded-circle" onClick={() => DeleteUser(user.id)}><TiUserDelete/></button>
                                 </div>
                             </div>
                         )
@@ -73,7 +87,7 @@ export const Users = () => {
     return(
         <div className="container">
             <div className="row justify-content-around mt-5">
-                <button className="btn btn-success" onClick={() => navigate(`/users/new/${state.length+1}`)}><FaUserPlus/></button>
+                <button className="btn btn-success" onClick={() => navigate(`/users/new`)}><FaUserPlus/></button>
             </div>
             <div className="row justify-content-around mt-5">
             {
